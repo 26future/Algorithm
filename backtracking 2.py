@@ -1,5 +1,3 @@
-import itertools
-
 numbers = input().split()
 N = int(numbers[0]) # N까지의 수
 M = int(numbers[1]) # 수열의 길이
