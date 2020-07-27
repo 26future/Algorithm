@@ -1,15 +1,11 @@
 N = 4
 
+
 board_idx = [] # 전체 체스판
 for i in range(N):
     for j in range(N):
         board_idx.append([i,j])
 
-queen = [0,1]
-count = 0
-
-# global inavailable
-inavailable = []
 
 def inavailable_idx(queen):
     for idx in board_idx:  # 현재 퀸의 같은 행
@@ -28,7 +24,7 @@ def inavailable_idx(queen):
     for i in range(N):
         row -= 1
         column -= 1
-        if 0 < row < 9 and 0 < column < 9:
+        if [row,column] in board_idx:
             inavailable.append([row,column])
 
     # 현재 퀸의 오른쪽 위 대각선
@@ -37,7 +33,7 @@ def inavailable_idx(queen):
     for i in range(N):
         row -= 1
         column += 1
-        if 0 < row < 9 and 0 < column < 9:
+        if [row,column] in board_idx:
             inavailable.append([row,column])
 
     # 현재 퀸의 왼쪽 아래 대각선
@@ -46,7 +42,7 @@ def inavailable_idx(queen):
     for i in range(N):
         row += 1
         column -= 1
-        if 0 < row < 9 and 0 < column < 9:
+        if [row,column] in board_idx:
             inavailable.append([row,column])
 
     # 현재 퀸의 오른쪽 아래 대각선
@@ -55,7 +51,7 @@ def inavailable_idx(queen):
     for i in range(N):
         row += 1
         column += 1
-        if 0 < row < 9 and 0 < column < 9:
+        if [row,column] in board_idx:
             inavailable.append([row,column])
 
     global available
@@ -65,36 +61,55 @@ def inavailable_idx(queen):
             available.append([queen[0]+1,j])
 
     return
-
-inavailable_idx(queen)
 # print(inavailable)
 # print(available)
+# print("="*30)
 
 
 # 1행부터 마지막 행까지
 def next_queen(row):
     for queen in available:
-        print(queen)
+        # print('row:',row)
+        # print(queen)
         inavailable_idx(queen)
-        print('inavailable:',inavailable)
-
-        print("available:",available)
-        print('-'*30)
+        # print('inavailable:',inavailable)
+        # print("available:",available)
+        # print('-'*30)
 
         if len(available) == 0: # 다음 행을 고려하지 않는 경우
             pass
+        elif row == N-1:
+            global count
+            count += 1
+            # print('count:', count)
+            return
         else:
-            # print('-'*30)
-            print('row:',row)
             row += 1
             next_queen(row)
-            if row == N - 1:
-                global count
-                count += 1
-                print('count:',count)
+
     return
 
 
-row = 1
-next_queen(row)
-print(count)
+
+queens = [[0,i] for i in range(N)]
+total_count = 0
+
+for queen in queens:
+    inavailable = []
+    inavailable_idx(queen)  # 0행에 대한 시행
+
+    row = 1
+    count = 0
+
+    next_queen(row) # 1행부터 마지막 행까지
+    total_count += count
+
+print(total_count)
+
+
+
+
+
+
+
+
