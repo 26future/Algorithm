@@ -1,10 +1,9 @@
+import sys
+
 N = int(input())
-
-numbers = []
-for i in range(N):
-    numbers.append(int(input()))
-
+numbers = [sys.stdin.readline().replace('\n','') for i in range(N)]
+numbers = list(map(lambda x:int(x), numbers))
 numbers = sorted(numbers)
 
-for n in numbers:
-    print(n)
+for number in numbers:
+    print(number)
