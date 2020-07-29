@@ -1,4 +1,5 @@
 import sys
+from collections import Counter
 
 N = int(input())
 numbers = [sys.stdin.readline().replace('\n','') for i in range(N)]
@@ -14,17 +15,17 @@ median = s_numbers[N//2]
 print(median)
 
 # 최빈값
-count = [s_numbers.count(n) for n in s_numbers]
-max_numbers = []
-for n in s_numbers:
-    if s_numbers.count(n) == max(count):
-        max_numbers.append(n)
+cnt_numbers = Counter(s_numbers).most_common()
+max_count = max([cnt[1] for cnt in cnt_numbers])
 
-s_numbers = sorted(max_numbers)
-if len(s_numbers) != 1:
-    print(s_numbers[1])
-else:
-    print(s_numbers[0])
+if len(cnt_numbers) > 1:
+    if cnt_numbers[1][1] == max_count:
+        print(cnt_numbers[1][0])
+    else:
+        print(cnt_numbers[0][0])
+
+else: # 입력된 수가 1개인 경우
+    print(cnt_numbers[0][0])
 
 # 범위
 print(max(s_numbers)-min(s_numbers))
