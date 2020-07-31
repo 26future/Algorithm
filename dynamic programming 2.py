@@ -1,26 +1,18 @@
 import sys
-T = int(input())
+T = int(sys.stdin.readline().strip())
 
-def fibonacci(n):
-    if n == 0:
-        global count_0
-        count_0 += 1
-        return 0
+def fibonacci(i):
+    i_count = [count[i-2][0]+count[i-1][0], count[i-2][1]+count[i-1][1]]
+    count.append(i_count)
+    return
 
-    elif n == 1:
-        global count_1
-        count_1 += 1
-        return 1
+for i in range(T):
+    n = int(sys.stdin.readline())
 
-    else:
-        return fibonacci(n-1)+fibonacci(n-2)
+    # [0의 개수, 1의 개수]
+    count = [[1, 0], [0, 1]]
 
+    for j in range(2,n+1):
+        fibonacci(j)
 
-numbers = [int(sys.stdin.readline().replace('\n','')) for i in range(T)]
-for N in numbers:
-    count_0 = 0
-    count_1 = 0
-
-    fibonacci(N)
-    print(count_0,count_1)
-
+    print(count[n][0],count[n][1])
