@@ -1,29 +1,23 @@
 import sys
-from itertools import permutations
-
 N = int(sys.stdin.readline().strip())
 
-tile = [[],['1'],['00','11']]
+tile = [['0'],['00','11']]
 
 def next_tile(n):
-    if n%2 != 0: # n이 홀수인 경우
-        li = ['1']+tile[n-1]
+    n_tile = []
+    for t in tile[n-2]:
+        n_tile.append('1'+t)
+        n_tile.append(t+'1')
 
-    else: # n이 짝수인 경우
-        li = ['1','11','00']+tile[n-1]
-
-    # n번째 수열의 종류
-    n_tile = list(permutations(li,2))
-    n_tile = list(set(t[0]+t[1] for t in n_tile if len(t[0]+t[1]) == n))
+    n_tile = list(set(n_tile)) # 중복 제거
 
     if n%2 == 0: # n이 짝수인 경우
-        n_tile.append('0'*(n))
+        n_tile.append('0'*n)
 
     tile.append(n_tile)
     return
 
 for n in range(3,N+1):
-    next_tile(n) # n번째 수열 구하기
+    next_tile(n)
 
-print(len(tile[N])%15746)
-
+print(len(tile[N-1])%15746)
