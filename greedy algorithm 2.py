@@ -1,12 +1,20 @@
-N = int(input())
-P = list(map(lambda x:int(x), input().split()))
+import sys
 
-total=0
-total += sum(P)
+N = int(sys.stdin.readline())
 
-minP = sorted(P)
-for n in range(N):
-    for i in range(n):
-        total += minP[i]
-print(total)
+meetings = []
+for i in range(N):
+    time = tuple(map(int, sys.stdin.readline().split()))
+    meetings.append(time)
+
+meetings.sort(key=lambda x:(x[1],x[0]))
+first = meetings[0]
+
+cnt = 1
+for j in range(1,N):
+    if first[1] <= meetings[j][0]:
+        first = meetings[j]
+        cnt += 1
+print(cnt)
+
 
