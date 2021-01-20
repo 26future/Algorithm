@@ -2,6 +2,7 @@ import sys
 sys.setrecursionlimit(10**6)
 
 N = int(sys.stdin.readline())
+
 numbers = list(map(str, list(range(1,10))))
 
 def stair_numbers(numbers):
