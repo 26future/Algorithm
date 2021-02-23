@@ -16,6 +16,7 @@ def solution(board, moves):
                     basket.pop()
                     basket.pop()
                     answer += 2
+                    
                 break
 
     return answer
